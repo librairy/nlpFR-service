@@ -24,12 +24,10 @@ import java.util.stream.Collectors;
 /**
  * @author Badenes Olmedo, Carlos <cbadenes@fi.upm.es>
  */
-@Component
 public class IXAService implements org.librairy.service.nlp.facade.model.NlpService {
 
     private static final Logger LOG = LoggerFactory.getLogger(org.librairy.service.nlp.service.IXAService.class);
 
-    @Value("#{environment['RESOURCE_FOLDER']?:'${resource.folder}'}")
     String resourceFolder;
 
     String model              ;
@@ -48,8 +46,11 @@ public class IXAService implements org.librairy.service.nlp.facade.model.NlpServ
     private Annotate posAnnotator;
 
 
-    @PostConstruct
-    public void setup() throws IOException {
+    public IXAService(String resourceFolder) {
+        this.resourceFolder = resourceFolder;
+    }
+
+    public void setup(){
 
         model              = Paths.get(resourceFolder,"morph-models-1.5.0/fr/fr-pos-perceptron-autodict01-sequoia.bin").toFile().getAbsolutePath();
         lemmatizerModel    = Paths.get(resourceFolder,"morph-models-1.5.0/fr/fr-lemma-perceptron-sequoia.bin").toFile().getAbsolutePath();
@@ -74,7 +75,11 @@ public class IXAService implements org.librairy.service.nlp.facade.model.NlpServ
         annotateProperties.setProperty("multiwords", multiwords);
         annotateProperties.setProperty("dictag", dictag);
 
-        this.posAnnotator    = new Annotate(annotateProperties);
+        try {
+            this.posAnnotator    = new Annotate(annotateProperties);
+        } catch (IOException e) {
+            throw new RuntimeException("Error initializing IXA Service",e);
+        }
 
     }
 
