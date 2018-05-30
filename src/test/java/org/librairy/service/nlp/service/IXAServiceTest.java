@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.librairy.service.nlp.facade.model.Annotation;
 import org.librairy.service.nlp.facade.model.PoS;
+import org.librairy.service.nlp.facade.model.Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +37,27 @@ public class IXAServiceTest {
     @Test
     public void annotation() throws IOException {
 
-        String text = "I have mice at my home";
+        String text = "Pouvez-vous me faire le change ?";
 
         List<PoS> filter = Collections.emptyList();
 
         List<Annotation> annotations = service.annotate(text, filter);
 
         annotations.forEach(annotation -> LOG.info(annotation.toString()));
+
+//        Assert.assertEquals(2, annotations.size());
+    }
+
+    @Test
+    public void group() throws IOException {
+
+        String text = "Pouvez-vous me faire le change ?";
+
+        List<PoS> filter = Collections.emptyList();
+
+        List<Token> groups = service.group(text, filter);
+
+        groups.forEach(annotation -> LOG.info(annotation.toString()));
 
 //        Assert.assertEquals(2, annotations.size());
     }
