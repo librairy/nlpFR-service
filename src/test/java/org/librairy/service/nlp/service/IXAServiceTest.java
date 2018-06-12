@@ -2,16 +2,10 @@ package org.librairy.service.nlp.service;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.librairy.service.nlp.facade.model.Annotation;
 import org.librairy.service.nlp.facade.model.PoS;
-import org.librairy.service.nlp.facade.model.Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -41,24 +35,11 @@ public class IXAServiceTest {
 
         List<PoS> filter = Collections.emptyList();
 
-        List<Annotation> annotations = service.annotate(text, filter);
+        List<Annotation> annotations = service.annotations(text, filter);
 
         annotations.forEach(annotation -> LOG.info(annotation.toString()));
 
 //        Assert.assertEquals(2, annotations.size());
     }
 
-    @Test
-    public void group() throws IOException {
-
-        String text = "Pouvez-vous me faire le change ?";
-
-        List<PoS> filter = Collections.emptyList();
-
-        List<Token> groups = service.group(text, filter);
-
-        groups.forEach(annotation -> LOG.info(annotation.toString()));
-
-//        Assert.assertEquals(2, annotations.size());
-    }
 }
