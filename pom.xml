@@ -205,11 +205,6 @@
 			  <scope>test</scope>
 		  </dependency>
 		  <dependency>
-			  <groupId>es.cbadenes.lab</groupId>
-			  <artifactId>test-utils</artifactId>
-			  <scope>test</scope>
-		  </dependency>
-		  <dependency>
 			  <groupId>org.springframework.boot</groupId>
 			  <artifactId>spring-boot-test</artifactId>
 			  <scope>test</scope>
